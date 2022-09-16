@@ -20,7 +20,7 @@ export default function User(props) {
           {" "}
           Delete
         </button>
-        <button className="btn btn-info">Update</button>
+        <button className="btn btn-info" disabled>Update</button>
       </div>
     </div>
   );
@@ -35,4 +35,5 @@ export const UserType = PropTypes.shape({
 
 User.propTypes = {
   user: UserType.isRequired,
+  onDelete: PropTypes.func,
 };

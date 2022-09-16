@@ -1,12 +1,15 @@
 import { Component } from "react";
 import ListUsers from "./components/ListUsers";
 import staticUsers from "./staticUsers";
+import AddUserForm from "./components/AddUserForm";
+import axios from "axios";
 //styles
 import "./App.css";
 
 class App extends Component {
   state = {
     staticUsers: staticUsers,
+    githubUsers: [],
   };
 
   handleOnDelete = (userId) => {
@@ -15,11 +18,34 @@ class App extends Component {
     });
   };
 
+  handleOnSubmit = async (username) => {
+    try {
+      const response = await axios.get(
+        `https://api.github.com/users/${username}`
+      );
+      const user = response.data;
+
+      this.setState({
+        ...this.state,
+        githubUsers: [
+          ...this.state.githubUsers,
+          {
+            id: user.id,
+            name: user.name,
+            avatar_url: user.avatar_url,
+            login: user.login,
+          },
+        ],
+      });
+    } catch (e) {}
+  };
+
   render() {
-    const { staticUsers } = this.state;
+    const { staticUsers, githubUsers } = this.state;
     return (
       <div className="App">
-        <ListUsers title="Github Users" users={[]} />
+        <AddUserForm onSubmit={this.handleOnSubmit} />
+        <ListUsers title="Github Users" users={githubUsers} onDelete={this.handleOnDelete} />
         <ListUsers
           title="Static Users"
           users={staticUsers}
