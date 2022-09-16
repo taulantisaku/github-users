@@ -1,6 +1,5 @@
 import { Component } from "react";
-import ListUsers from "./components/ListUsers";
-import staticUsers from "./staticUsers";
+
 //styles
 import "./App.css";
 
