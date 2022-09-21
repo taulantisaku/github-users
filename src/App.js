@@ -1,12 +1,25 @@
-import { Component } from "react";
-
 //styles
 import "./App.css";
+import Users from "./Users";
+import ErrorBoundary from "./ErrorBoundary";
 
-class App extends Component {
-  render() {
-    return <div className="App">test</div>;
-  }
+export default function App() {
+  return (
+    <div className="App">
+      <header>
+        <ul>
+          <li>home</li>
+          <li>about</li>
+        </ul>
+      </header>
+      <div style={{ display: "flex" }}>
+        <aside style={{ background: "black" }}>sidebar</aside>
+        <main>
+          <ErrorBoundary>
+            <Users />
+          </ErrorBoundary>
+        </main>
+      </div>
+    </div>
+  );
 }
-
-export default App;
